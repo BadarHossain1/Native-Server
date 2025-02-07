@@ -1,5 +1,10 @@
 import { Schema, model } from 'mongoose';
 
+export interface NoteDocument{
+    title: string;
+    description?: string;
+}
+
 
 const noteSchema = new Schema({
     title: {

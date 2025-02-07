@@ -1,6 +1,8 @@
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import './db';
-import Note from './models/note';
+import Note, { NoteDocument } from './models/note';
+import { create, deleteShit, getNotes, getSingleNote, patching } from './controllers/note';
+import noteRouter from './routers/note';
 
 // create a server
 
@@ -15,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 //     req.on("data", (chunk) => {
 //         req.body = JSON.parse(chunk);
 //         next();
-        
+
 //     });
 
 // })
@@ -24,29 +26,22 @@ app.use(express.urlencoded({ extended: false }));
 
 
 
-app.post('/', (req,res) => {
+app.post('/', (req, res) => {
     console.log(req.body);
     res.send('Hello World!!!!!');
-    });
+});
 
 
-app.post('/create',async (req,res) => {
-        const newNote = new Note({
-            title: req.body.title,
-            description: req.body.description
+interface IncomingBody {
+    title: string;
+    description?: string;
+}
 
-        })
-        await newNote.save();
-        res.json({message: 'I M READING'})
-        
+app.use("/note",noteRouter);
 
 
-            
-           
-    });
-    
 // Listen to a port
 
 app.listen(8000, () => {
     console.log('server running on localhost:8000');
-    });
+});
