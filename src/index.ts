@@ -1,14 +1,12 @@
-import express, { RequestHandler } from 'express';
+import express, { RequestHandler } from 'express'; // This line imports the express module and the RequestHandler type from the express package. express is a web framework for Node.js.
 import './db';
-import Note, { NoteDocument } from './models/note';
-import { create, deleteShit, getNotes, getSingleNote, patching } from './controllers/note';
-import noteRouter from './routers/note';
+import noteRouter from './routers/note'; //This line imports the Note model and the NoteDocument type from the models/note module. The Note model is used to interact with the notes collection in the database.
 
 // create a server
 
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const app = express(); // This line creates an instance of an Express application.
+app.use(express.json()); //This line adds middleware to parse incoming JSON requests and make the parsed data available in req.body.
+app.use(express.urlencoded({ extended: false })); // This line adds middleware to parse incoming URL-encoded requests and make the parsed data available in req.body.
 
 // The explanation of above two lines is below.
 // app.use((req, res,next) =>{
@@ -22,22 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // })
 
-
-
-
-
-app.post('/', (req, res) => {
-    console.log(req.body);
-    res.send('Hello World!!!!!');
-});
-
-
-interface IncomingBody {
-    title: string;
-    description?: string;
-}
-
-app.use("/note",noteRouter);
+app.use("/note",noteRouter); // This line mounts the noteRouter on the /note path. Any requests to /note will be handled by the routes defined in noteRouter.
 
 
 // Listen to a port

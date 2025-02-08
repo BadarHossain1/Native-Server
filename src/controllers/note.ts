@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import Note, { NoteDocument } from '../models/note';
-import { deleteShit } from './note';
+
 
 interface IncomingBody {
     title: string;
