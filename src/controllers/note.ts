@@ -1,11 +1,11 @@
-import { RequestHandler } from 'express';
+import { RequestHandler } from 'express'; //  RequestHandler is a type definition for functions that handle HTTP requests in Express.
 import Note, { NoteDocument } from '../models/note';
 
 
 interface IncomingBody {
     title: string;
     description?: string;
-}
+} // Specifies the structure of the incoming request body. 
 
 export const create: RequestHandler = async (req, res) => {
     // const newNote = new Note<NoteDocument>({
@@ -18,7 +18,7 @@ export const create: RequestHandler = async (req, res) => {
     await Note.create<NoteDocument>({
         title: (req.body as IncomingBody).title,
         description: (req.body as IncomingBody).description
-    });
+    }); //This block creates a new note document in the database using the Note model's create method. The title and description fields are extracted from the request body, which is cast to the IncomingBody type.
     res.json({ message: 'I M READING' })
 
 
@@ -40,7 +40,7 @@ export const patching: RequestHandler<{ noteId: string }> = async (req, res) => 
     const note = await Note.findByIdAndUpdate(noteId, {
         title,
         description
-    }, { new: true });
+    }, { new: true }); //The { new: true } option ensures that the updated document is returned.
     if (!note) {
         return res.status(404).json({ message: 'Note not found' });
     }
