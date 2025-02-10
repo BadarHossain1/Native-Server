@@ -1,11 +1,15 @@
 import express, { RequestHandler } from 'express'; // This line imports the express module and the RequestHandler type from the express package. express is a web framework for Node.js.
 import './db';
-import noteRouter from './routers/note'; //This line imports the Note model and the NoteDocument type from the models/note module. The Note model is used to interact with the notes collection in the database.
+import noteRouter from './routers/note'; 
+//This line imports the Note model and the NoteDocument type from the models/note module. The Note model is used to interact with the notes collection in the database.
+
+import cors from 'cors'; // This line imports the cors module. cors is a middleware that enables cross-origin resource sharing in Express.
 
 // create a server
 
 const app = express(); // This line creates an instance of an Express application.
 app.use(express.json()); //This line adds middleware to parse incoming JSON requests and make the parsed data available in req.body.
+app.use(cors()); // This line adds middleware to enable cross-origin resource sharing. This allows the Express server to accept requests from other domains.
 app.use(express.urlencoded({ extended: false })); // This line adds middleware to parse incoming URL-encoded requests and make the parsed data available in req.body.
 
 // The explanation of above two lines is below.

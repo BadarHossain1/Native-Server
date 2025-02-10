@@ -15,11 +15,11 @@ export const create: RequestHandler = async (req, res) => {
     // })
     // await newNote.save();
 
-    await Note.create<NoteDocument>({
+    const newNote = await Note.create<NoteDocument>({
         title: (req.body as IncomingBody).title,
         description: (req.body as IncomingBody).description
     }); //This block creates a new note document in the database using the Note model's create method. The title and description fields are extracted from the request body, which is cast to the IncomingBody type.
-    res.json({ message: 'I M READING' })
+    res.json({ note: { id: newNote._id, title: newNote.title, description: newNote.description } });
 
 
 
