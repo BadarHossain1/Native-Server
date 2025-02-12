@@ -45,7 +45,7 @@ export const patching: RequestHandler<{ noteId: string }> = async (req, res) => 
         return res.status(404).json({ message: 'Note not found' });
     }
     note.save();
-    res.json({ message: 'Note updated successfully', note });
+    res.json({ note: { id: note._id, title: note.title, description: note.description } });
 }
 
 export const deleteShit: RequestHandler = async (req, res) => {
@@ -61,7 +61,7 @@ export const deleteShit: RequestHandler = async (req, res) => {
 
 export const getNotes: RequestHandler = async (req, res) => {
     const notes = await Note.find();
-    res.json({ notes });
+    res.json({ notes: notes.map(note => ({ id: note._id, title: note.title, description: note.description })) });
 }
 
 export const getSingleNote: RequestHandler = async (req, res) => {
